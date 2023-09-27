@@ -3,7 +3,7 @@ const bcrypt = require("bcryptjs");
 const jwt = require("jsonwebtoken");
 
 
-exports.registation = async (req, res) => {
+exports.registration = async (req, res) => {
     try {
         const salt = bcrypt.genSaltSync(10);
         const hashPassword = await bcrypt.hashSync(req.body.password, salt);
@@ -24,12 +24,10 @@ exports.registation = async (req, res) => {
 exports.login = async (req, res) => {
     try {
         const user = await userData.User.findOne({ username: req.body.username });
-        // console.log("User password", user.password);
         if (!user) {
             console.log("User not found");
             return res.status(404).json({ message: "User not found" });
         }
-
         const checkPassword = await bcrypt.compare(req.body.password, user.password);
         if (!checkPassword) {
             console.log("Invalid password");
@@ -45,7 +43,6 @@ exports.login = async (req, res) => {
             res.json({ token, user });
         });
     } catch (error) {
-        // console.error("Login error:", error);
         res.status(500).json({ message: "Login failed" });
     }
 };

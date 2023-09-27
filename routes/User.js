@@ -1,16 +1,15 @@
 const express = require('express');
-const { postRequest } = require('../controller/User');
-const { registation,login } = require('../controller/auth');
-
+const { registration ,login } = require('../controller/auth');
+const { verifyTokenAndAuthorization, verifyToken } = require('../middleware/verifyToken');
+const {User} = require("../models/User");
+const { updateUser,deleteUser } = require('../controller/User');
 const routes = express.Router();
 
 
-routes.get("/",(req,res)=>{
-    res.send("Hello, world!");
-});
-
-routes.post("/post",postRequest);
-routes.post("/sign-up",registation);
+routes.post("/sign-up",registration);
 routes.post("/login",login);
+
+routes.put('/:id', verifyToken,updateUser)
+routes.delete("/:id",verifyToken,deleteUser);
 
 module.exports = routes;
