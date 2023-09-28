@@ -39,5 +39,17 @@ const deleteUser = async(req,res)=>{
         console.error(error);
     }
 }
+const getAllUser = async(req,res)=>{
+    try{
 
-module.exports = { updateUser,deleteUser }
+        const AllUser = await User.find({});
+        if(!AllUser){
+            res.status(404).json({message:"user not avialable"})
+        }
+        return res.send(AllUser);
+    } catch(err){
+        console.log(err);
+    }
+}
+
+module.exports = { updateUser,deleteUser,getAllUser}

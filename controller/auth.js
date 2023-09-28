@@ -5,6 +5,11 @@ const jwt = require("jsonwebtoken");
 
 exports.registration = async (req, res) => {
     try {
+        const {username,password,email} = req.body;
+        if(!username || !password || !email){
+            return res.status(400).json({message:"check your required field"})
+        }
+
         const salt = bcrypt.genSaltSync(10);
         const hashPassword = await bcrypt.hashSync(req.body.password, salt);
         const newUser = await userData.User({
@@ -25,12 +30,10 @@ exports.login = async (req, res) => {
     try {
         const user = await userData.User.findOne({ username: req.body.username });
         if (!user) {
-            console.log("User not found");
             return res.status(404).json({ message: "User not found" });
         }
         const checkPassword = await bcrypt.compare(req.body.password, user.password);
         if (!checkPassword) {
-            console.log("Invalid password");
             return res.status(401).json({ message: "Invalid password" });
         }
 
