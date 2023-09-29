@@ -1,6 +1,6 @@
 const mongoose = require('mongoose');
 
-const orderSchema = mongoose.Schema({
+const orderSchema =new mongoose.Schema({
     userId:{
         type:String,
         required:true,
@@ -11,8 +11,8 @@ const orderSchema = mongoose.Schema({
                 type:String,
             },
             quantity:Number,
-            default:1,
-        }
+            // default:1,
+        },
     ],
     amount:{
         type:Number,

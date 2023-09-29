@@ -1,17 +1,21 @@
 const productData = require("../models/Product");
 
 const addProduct = async (req, res) => {
-    const { title, description, price, quantity, size, color, category, img } = req.body;
-    const newProduct = await productData.Product({
-        title, description, price, quantity, size, color, category, img
-    });
+   const newProduct = await productData.Product(req.body);
+   try{
+    const savedProduct = await newProduct.save();
+    res.send(savedProduct);
+
+   } catch(error){
+    res.status(404).send(error);
+   }
     const storeProduct = await newProduct.save();
     res.status(200).json(storeProduct);
 };
 
 const getAlProduct = async (req, res) => {
     const AllProduct = await productData.Product.find({});
-    if (AllProduct.length < 0) {
+    if (!AllProduct) {
         res.status(200).json({ message: "Product not found" })
     }
     res.json(AllProduct);
