@@ -11,7 +11,7 @@ const port = process.env.PORT || 3000;
 
 app.use("/api/user",routes);
 app.use("/api/product",productRoute)
-app.use("/api/cart",cartRoute);
+// app.use("/api",cartRoute);
 
 
 const start = ()=>{

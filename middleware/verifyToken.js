@@ -28,12 +28,15 @@ const verifyTokenAndAuthorization = (req, res, next) => {
     })
 }
 
-const verifyTokenAndAdmin = (req,res,next)=>{
-    verifyToken(req,res,()=>{
-        if(req.user.isAdmin){
+const verifyTokenAndAdmin = (req, res, next) => {
+    verifyToken(req, res, () => {
+        if (req.user.isAdmin) {
             next();
+        }
+        else {
+            res.status(403).json("you are not authorized to access this website")
         }
     })
 }
 
-module.exports = { verifyToken, verifyTokenAndAuthorization }
+module.exports = { verifyToken, verifyTokenAndAuthorization,verifyTokenAndAdmin}

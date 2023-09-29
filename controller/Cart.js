@@ -1,28 +1,44 @@
-const {Cart}= require("../models/Cart");
+// const {Cart}= require("../models/Cart");
 
-const addToCart = async(req,res)=>{
-    const newCart =  await Cart(
-        req.body
-        // productId:req.body.productId,
-        // userId:req.body.userId,
-    );
-    const saveCart = await newCart.save();
-    res.status(200).send(saveCart);
-};
+// const addItemToCart = async(userId,productId)=>{
+//     try {
+//         const quantity = 1;
+//         const cart = await Cart.findOne({user:userId});
 
-const updateCart = async(req,res)=>{
-    try {
-        const updateCart = await Cart.findByIdAndUpdate(
-            req.params.id,{
-                $set:req.body,
-            },
-            {new:true}
-        );
-        res.status(200).json(updateCart);
+//         if(!cart){
+//             cart = new Cart({ user: userId, items: [] });
+//         }
 
-    } catch(error){
-        console.log(error);
-    }
-}
+//         const existItems = cart.items.find((item)=>{
+//             item.Product.equals(productId)
+//         });
+//         if(existItems){
+//             existItems.quantity += quantity;
+//         }
+//         else {
+//             cart.items.push({Product,quantity});
+//         }
+//         const saveCart = cart.save();
+//         res.send(saveCart);
+//     } catch(error){
+//         console.log(error);
+//     }
+// }
 
-module.exports = {addToCart,updateCart}
+
+// const updateCart = async(req,res)=>{
+//     try {
+//         const updateCart = await Cart.findByIdAndUpdate(
+//             req.params.id,{
+//                 $set:req.body,
+//             },
+//             {new:true}
+//         );
+//         res.status(200).json(updateCart);
+
+//     } catch(error){
+//         console.log(error);
+//     }
+// }
+
+// module.exports = {addItemToCart,updateCart}
